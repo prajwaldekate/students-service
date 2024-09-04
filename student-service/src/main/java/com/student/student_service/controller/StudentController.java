@@ -45,7 +45,7 @@ public class StudentController {
 		responseModel = studentService.createStudentInfo(studentRequest, file);
 		
 		if(responseModel != null) {
-			responseEntity = new ResponseEntity<>(responseModel.getSId(), HttpStatus.CREATED);
+			responseEntity = new ResponseEntity<>(responseModel.getStudentId(), HttpStatus.CREATED);
 		}else {
 			responseEntity = new ResponseEntity<>(buildExceptionPayload(ExceptionConstant.EXCEPTION_SRVC01, ExceptionConstant.EXCEPTION_SRVC01_DESC), HttpStatus.BAD_REQUEST);
 		}

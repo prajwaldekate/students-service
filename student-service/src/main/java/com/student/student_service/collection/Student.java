@@ -18,7 +18,7 @@ public class Student{
 	public static final String SEQUENCE_NAME = "sId";
 	
 	@Id
-	private Long sId;
+	private Long studentId;
 	private String firstName;
 	private String lastName;
 	private String middleName;
@@ -29,7 +29,7 @@ public class Student{
 	private String city;
 	private String state;
 	private String country;
-	private long std;
-	private String file;
+	private long standard;
+	private String attachment;
 	
 }

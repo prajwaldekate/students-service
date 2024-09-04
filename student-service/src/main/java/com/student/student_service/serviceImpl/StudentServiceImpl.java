@@ -41,14 +41,16 @@ public class StudentServiceImpl implements StudentService {
 	private final StandardRepository standardRepository;
 	private final CounterDAO sequence;
 	private final FileUploadRepository fileUploadRepository;
+	private static final String FILE_DIRECTORY = "C:/uploads/prajwal/";
+
 
 	@Override
 	public Student createStudentInfo(StudentRequest studentRequest, MultipartFile file) {
 
 		Student student = new Student();
 
-		student.setSId(sequence.getNextSequenceOfField(Student.SEQUENCE_NAME));
-		student.setFile(uploadFiles(file));
+		student.setStudentId(sequence.getNextSequenceOfField(Student.SEQUENCE_NAME));
+		student.setAttachment(uploadFiles(file));
 		mapStudentRequestToEntity(studentRequest, student);
 
 		try {
@@ -59,14 +61,14 @@ public class StudentServiceImpl implements StudentService {
 		}
 	}
 
-	private String uploadFiles(MultipartFile file) {
+	private String uploadFiles(MultipartFile multipartFile) {
 		try {
-			String fileName = file.getOriginalFilename();
-			String filePath = "C:/uploads/prajwal/" + fileName;
-			File dest = new File(filePath);
+			String fileName = multipartFile.getOriginalFilename();
+			String filePath = FILE_DIRECTORY + fileName;
+			File file = new File(filePath);
 
-			dest.getParentFile().mkdirs();
-			file.transferTo(dest);
+			file.getParentFile().mkdirs();
+			multipartFile.transferTo(file);
 
 			return filePath;
 		} catch (IOException e) {
@@ -85,13 +87,13 @@ public class StudentServiceImpl implements StudentService {
 		student.setCity(studentRequest.getCity());
 		student.setState(studentRequest.getState());
 		student.setCountry(studentRequest.getCountry());
-		student.setStd(studentRequest.getStd());
+		student.setStandard(studentRequest.getStandard());
 	}
 
 	@Override
 	public Page<StudentResponse> getAllStudentInfo(int page, int size) {
 
-		Pageable pageable = PageRequest.of(page, size, Sort.by("sId").descending());
+		Pageable pageable = PageRequest.of(page, size, Sort.by("studentId").descending());
 
 		Page<Student> studentRes = studentRepository.findAll(pageable);
 
@@ -100,7 +102,7 @@ public class StudentServiceImpl implements StudentService {
 			List<StudentResponse> list = studentRes.stream().map(student -> {
 
 				StudentResponse studentResponse = new StudentResponse();
-				studentResponse.setSId(student.getSId());
+				studentResponse.setStudentId(student.getStudentId());
 				studentResponse.setFirstName(student.getFirstName());
 				studentResponse.setLastName(student.getLastName());
 				studentResponse.setMiddleName(student.getMiddleName());
@@ -122,17 +124,17 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public StudentResponse findBySId(Long sId) {
-		Optional<Student> optionalStudent = studentRepository.findById(sId);
+	public StudentResponse findBySId(Long studentId) {
+		Optional<Student> optionalStudent = studentRepository.findById(studentId);
 
 		if (optionalStudent == null || !optionalStudent.isPresent()) {
-			throw new RuntimeException("SId not found: " + sId);
+			throw new RuntimeException("studentId not found: " + studentId);
 		}
 
 		Student student = optionalStudent.get();
 		StudentResponse studentResponse = new StudentResponse();
 
-		studentResponse.setSId(student.getSId());
+		studentResponse.setStudentId(student.getStudentId());
 		studentResponse.setFirstName(student.getFirstName());
 		studentResponse.setLastName(student.getLastName());
 		studentResponse.setMiddleName(student.getMiddleName());
@@ -144,9 +146,9 @@ public class StudentServiceImpl implements StudentService {
 		studentResponse.setState(student.getState());
 		studentResponse.setCountry(student.getCountry());
 
-		long std = student.getStd();
+		long std = student.getStandard();
 		Optional<Standard> optionalStandard = standardRepository.findById(std);
-		optionalStandard.ifPresent(standard -> studentResponse.setStd(standard.getStd()));
+		optionalStandard.ifPresent(standard -> studentResponse.setStandard(standard.getStandard()));
 
 		return studentResponse;
 	}
@@ -158,7 +160,7 @@ public class StudentServiceImpl implements StudentService {
 			fileUpload.setFileUploadId(sequence.getNextSequenceOfField(FileUpload.SEQUENCE_NAME));
 
 			String fileName = file.getOriginalFilename();
-			String filePath = "C:/uploads/prajwal/" + fileName;
+			String filePath = FILE_DIRECTORY + fileName;
 			File dest = new File(filePath);
 
 			dest.getParentFile().mkdirs();
@@ -174,7 +176,6 @@ public class StudentServiceImpl implements StudentService {
 		}
 	}
 
-	private static final String FILE_DIRECTORY = "C:/uploads/prajwal/";
 
 	@Override
 	public ResponseEntity<byte[]> downloadFile(String fileName) throws IOException {
