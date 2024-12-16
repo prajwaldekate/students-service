@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.student.student_service.enums.Gender;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class Student{
 
 	@Transient
-	public static final String SEQUENCE_NAME = "sId";
+	public static final String SEQUENCE_NAME = "studentId";
 	
 	@Id
 	private Long studentId;
@@ -31,5 +33,7 @@ public class Student{
 	private String country;
 	private long standard;
 	private String attachment;
+	private String classTeacherId;
+	private Gender gender;
 	
 }

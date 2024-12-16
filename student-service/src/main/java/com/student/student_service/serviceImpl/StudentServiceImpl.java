@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.student.student_service.collection.FileUpload;
 import com.student.student_service.collection.Standard;
 import com.student.student_service.collection.Student;
+import com.student.student_service.constant.ExceptionConstant;
+import com.student.student_service.exception.ResourceNotFoundException;
 import com.student.student_service.helper.CounterDAO;
 import com.student.student_service.model.StudentRequest;
 import com.student.student_service.model.StudentResponse;
@@ -38,9 +40,13 @@ import lombok.RequiredArgsConstructor;
 public class StudentServiceImpl implements StudentService {
 
 	private final StudentRepository studentRepository;
+	
 	private final StandardRepository standardRepository;
+	
 	private final CounterDAO sequence;
+	
 	private final FileUploadRepository fileUploadRepository;
+	
 	private static final String FILE_DIRECTORY = "C:/uploads/prajwal/";
 
 
@@ -124,16 +130,12 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public StudentResponse findBySId(Long studentId) {
-		Optional<Student> optionalStudent = studentRepository.findById(studentId);
+	public StudentResponse findStudentById(Long studentId) {
+		
+		Student student = studentRepository.findById(studentId)
+				.orElseThrow(() -> new ResourceNotFoundException(ExceptionConstant.EXCEPTION_SRV02, ExceptionConstant.STUDENT_NOT_FOUND + studentId));
 
-		if (optionalStudent == null || !optionalStudent.isPresent()) {
-			throw new RuntimeException("studentId not found: " + studentId);
-		}
-
-		Student student = optionalStudent.get();
 		StudentResponse studentResponse = new StudentResponse();
-
 		studentResponse.setStudentId(student.getStudentId());
 		studentResponse.setFirstName(student.getFirstName());
 		studentResponse.setLastName(student.getLastName());

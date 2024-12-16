@@ -25,4 +25,6 @@ public class ExceptionConstant {
 	
 	public static final String EXCEPTION_SRV08 = "EXP_08";
 	public static final String EXCEPTION_SRVC08_DESC = "--------";
+	
+	public static final String STUDENT_NOT_FOUND = "Student not found with id : ";
 }

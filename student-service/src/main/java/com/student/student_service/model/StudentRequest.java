@@ -7,7 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class StudentRequest {
 
-	private Long studentId;
 	private String firstName;
 	private String lastName;
 	private String middleName;

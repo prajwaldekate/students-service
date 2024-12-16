@@ -73,12 +73,12 @@ public class StudentController {
 	}
 	
 	
-	@GetMapping(value = "/findBySId")
-	public ResponseEntity<?> findById(@RequestParam Long sId) {
-	    log.info("@StudentController @findBySId start :: {}", sId);
-
+	@GetMapping(value = "/findStudentById")
+	public ResponseEntity<?> findStudentById(@RequestParam Long studentId) {
+	    log.info("@StudentController ::  @findStudentById :: start :: Request :: {}", studentId);
+ 
 	    ResponseEntity<?> responseEntity;
-	    StudentResponse responseModel = studentService.findBySId(sId);
+	    StudentResponse responseModel = studentService.findStudentById(studentId);
 
 	    if (responseModel != null) {
 	        responseEntity = new ResponseEntity<>(responseModel, HttpStatus.OK);
@@ -86,7 +86,7 @@ public class StudentController {
 	        responseEntity = new ResponseEntity<>(buildExceptionPayload(ExceptionConstant.EXCEPTION_SRVC01, ExceptionConstant.EXCEPTION_SRVC01_DESC), HttpStatus.NOT_FOUND);
 	    }
 
-	    log.info("@StudentController @findBySId end :: {}", sId);
+	    log.info("@StudentController @findStudentById end :: {}", studentId);
 	    return responseEntity;
 	}
 
