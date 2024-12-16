@@ -16,7 +16,7 @@ public interface StudentService {
 	
 	public Page<StudentResponse> getAllStudentInfo(int page, int size);
 	
-	public StudentResponse findBySId(Long sId);
+	public StudentResponse findStudentById(Long studentId);
 	
 	public String uploadFile(MultipartFile file);
 	

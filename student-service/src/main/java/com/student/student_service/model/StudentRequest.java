@@ -7,7 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class StudentRequest {
 
-	private Long sId;
 	private String firstName;
 	private String lastName;
 	private String middleName;
@@ -18,6 +17,8 @@ public class StudentRequest {
 	private String city;
 	private String state;
 	private String country;
-	private long std;
+	private long standard;
+	private String attachment;
+	
 
 }

@@ -49,7 +49,7 @@ public class FileProcessingHeaderList {
 			for (Student student : list) {
 				Row dataRow = sheet.createRow(rowIndex);
 				rowIndex++;
-				dataRow.createCell(0).setCellValue(student.getSId());
+				dataRow.createCell(0).setCellValue(student.getStudentId());
 				dataRow.createCell(1).setCellValue(student.getFirstName());
 				dataRow.createCell(2).setCellValue(student.getLastName());
 				dataRow.createCell(3).setCellValue(student.getMiddleName());
@@ -60,8 +60,8 @@ public class FileProcessingHeaderList {
 				dataRow.createCell(8).setCellValue(student.getCity());
 				dataRow.createCell(9).setCellValue(student.getState());
 				dataRow.createCell(10).setCellValue(student.getCountry());
-				dataRow.createCell(11).setCellValue(student.getStd());
-				dataRow.createCell(12).setCellValue(student.getFile());
+				dataRow.createCell(11).setCellValue(student.getStandard());
+				dataRow.createCell(12).setCellValue(student.getAttachment());
 			}
 
 			workbook.write(out);

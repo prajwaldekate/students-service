@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "base-uri.context",
+    "type": "java.lang.String",
+    "description": "A description for 'base-uri.context'"
+  },
+  {
+    "name": "Spring.data.mongodb.auto-index-creation",
+    "type": "java.lang.String",
+    "description": "A description for 'Spring.data.mongodb.auto-index-creation'"
+  }
+]}
