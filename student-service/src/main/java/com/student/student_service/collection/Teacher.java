@@ -7,9 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.student.student_service.enums.Gender;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Document("TEACHERS")
+@RequiredArgsConstructor
 public class Teacher {
 	
 	@Transient
