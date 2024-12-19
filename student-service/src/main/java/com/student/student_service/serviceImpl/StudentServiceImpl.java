@@ -135,7 +135,9 @@ public class StudentServiceImpl implements StudentService {
 		
 //		Student student = studentRepository.findById(studentId)
 //				.orElseThrow(() -> new ResourceNotFoundException(ExceptionConstant.EXCEPTION_SRV02, ExceptionConstant.STUDENT_NOT_FOUND + studentId));
+		
 		Student student = cacheInitializer.getStudentDetails(studentId);
+		
 		StudentResponse studentResponse = new StudentResponse();
 		studentResponse.setStudentId(student.getStudentId());
 		studentResponse.setFirstName(student.getFirstName());
@@ -209,5 +211,10 @@ public class StudentServiceImpl implements StudentService {
 			// Handle file reading errors
 			throw new IOException("Error reading file: " + fileName, e);
 		}
+	}
+
+	@Override
+	public void clearCache() {
+		cacheInitializer.clearAllCache();
 	}
 }

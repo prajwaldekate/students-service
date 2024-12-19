@@ -128,6 +128,12 @@ public class StudentController {
 	    return responseEntity;
 	}
 	
+	@GetMapping("/clearCache")
+	public String clearAllCache() {
+		studentService.clearCache();
+		return "Data Cleared from Cache";
+	}
+	
 	private ExceptionModel buildExceptionPayload(String errorCode, String errorDesc) {
 		return new ExceptionModel(errorCode, errorDesc);
 	}
