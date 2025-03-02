@@ -134,6 +134,13 @@ public class StudentController {
 		return "Data Cleared from Cache";
 	}
 	
+	@GetMapping("/form")
+	public String openForm() {
+		
+		System.out.println( "opening form");
+		return "form";
+	}
+	
 	private ExceptionModel buildExceptionPayload(String errorCode, String errorDesc) {
 		return new ExceptionModel(errorCode, errorDesc);
 	}
