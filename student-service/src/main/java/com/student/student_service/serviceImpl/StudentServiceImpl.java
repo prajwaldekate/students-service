@@ -20,11 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.student.student_service.cache.CacheInitializer;
 import com.student.student_service.collection.FileUpload;
 import com.student.student_service.collection.Standard;
 import com.student.student_service.collection.Student;
-import com.student.student_service.constant.ExceptionConstant;
-import com.student.student_service.exception.ResourceNotFoundException;
 import com.student.student_service.helper.CounterDAO;
 import com.student.student_service.model.StudentRequest;
 import com.student.student_service.model.StudentResponse;
@@ -48,6 +47,8 @@ public class StudentServiceImpl implements StudentService {
 	private final FileUploadRepository fileUploadRepository;
 	
 	private static final String FILE_DIRECTORY = "C:/uploads/prajwal/";
+	
+	private final CacheInitializer cacheInitializer;
 
 
 	@Override
@@ -132,9 +133,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public StudentResponse findStudentById(Long studentId) {
 		
-		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException(ExceptionConstant.EXCEPTION_SRV02, ExceptionConstant.STUDENT_NOT_FOUND + studentId));
-
+//		Student student = studentRepository.findById(studentId)
+//				.orElseThrow(() -> new ResourceNotFoundException(ExceptionConstant.EXCEPTION_SRV02, ExceptionConstant.STUDENT_NOT_FOUND + studentId));
+		
+		Student student = cacheInitializer.getStudentDetails(studentId);
+		
 		StudentResponse studentResponse = new StudentResponse();
 		studentResponse.setStudentId(student.getStudentId());
 		studentResponse.setFirstName(student.getFirstName());
@@ -208,5 +211,10 @@ public class StudentServiceImpl implements StudentService {
 			// Handle file reading errors
 			throw new IOException("Error reading file: " + fileName, e);
 		}
+	}
+
+	@Override
+	public void clearCache() {
+		cacheInitializer.clearAllCache();
 	}
 }

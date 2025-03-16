@@ -22,4 +22,6 @@ public interface StudentService {
 	
 	public ResponseEntity<byte[]> downloadFile(String fileName) throws IOException;
 	
+	public void clearCache();
+	
 }

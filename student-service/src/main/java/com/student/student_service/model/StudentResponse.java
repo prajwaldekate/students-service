@@ -1,8 +1,10 @@
 package com.student.student_service.model;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
 public class StudentResponse {
 
 	private Long studentId;
