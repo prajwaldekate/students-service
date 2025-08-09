@@ -45,7 +45,7 @@ public class StudentController {
 		responseModel = studentService.createStudentInfo(studentRequest, file);
 		
 		if(responseModel != null) {
-			responseEntity = new ResponseEntity<>(responseModel.getSId(), HttpStatus.CREATED);
+			responseEntity = new ResponseEntity<>(responseModel.getStudentId(), HttpStatus.CREATED);
 		}else {
 			responseEntity = new ResponseEntity<>(buildExceptionPayload(ExceptionConstant.EXCEPTION_SRVC01, ExceptionConstant.EXCEPTION_SRVC01_DESC), HttpStatus.BAD_REQUEST);
 		}
@@ -73,12 +73,12 @@ public class StudentController {
 	}
 	
 	
-	@GetMapping(value = "/findBySId")
-	public ResponseEntity<?> findById(@RequestParam Long sId) {
-	    log.info("@StudentController @findBySId start :: {}", sId);
-
+	@GetMapping(value = "/findStudentById")
+	public ResponseEntity<?> findStudentById(@RequestParam Long studentId) {
+	    log.info("@StudentController ::  @findStudentById :: start :: Request :: {}", studentId);
+ 
 	    ResponseEntity<?> responseEntity;
-	    StudentResponse responseModel = studentService.findBySId(sId);
+	    StudentResponse responseModel = studentService.findStudentById(studentId);
 
 	    if (responseModel != null) {
 	        responseEntity = new ResponseEntity<>(responseModel, HttpStatus.OK);
@@ -86,7 +86,7 @@ public class StudentController {
 	        responseEntity = new ResponseEntity<>(buildExceptionPayload(ExceptionConstant.EXCEPTION_SRVC01, ExceptionConstant.EXCEPTION_SRVC01_DESC), HttpStatus.NOT_FOUND);
 	    }
 
-	    log.info("@StudentController @findBySId end :: {}", sId);
+	    log.info("@StudentController @findStudentById end :: {}", studentId);
 	    return responseEntity;
 	}
 
@@ -126,6 +126,19 @@ public class StudentController {
 
 	    log.info("@StudentController @downloadFile end :: {}", fileName);
 	    return responseEntity;
+	}
+	
+	@GetMapping("/clearCache")
+	public String clearAllCache() {
+		studentService.clearCache();
+		return "Data Cleared from Cache";
+	}
+	
+	@GetMapping("/form")
+	public String openForm() {
+		
+		System.out.println( "opening form");
+		return "form";
 	}
 	
 	private ExceptionModel buildExceptionPayload(String errorCode, String errorDesc) {

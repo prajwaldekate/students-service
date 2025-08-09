@@ -10,7 +10,7 @@ import lombok.Data;
 public class Standard {
 
 	@Id
-	private Long stdId;
-	private String std;
+	private Long standardId;
+	private String standard;
 	
 }

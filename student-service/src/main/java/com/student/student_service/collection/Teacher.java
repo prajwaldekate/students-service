@@ -6,34 +6,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.student.student_service.enums.Gender;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
+@Document("TEACHERS")
 @RequiredArgsConstructor
-@AllArgsConstructor
-@Document("STUDENT")
-public class Student{
-
-	@Transient
-	public static final String SEQUENCE_NAME = "studentId";
+public class Teacher {
 	
+	@Transient
+	public static final String SEQUENCE_NAME = "teacherId";
+
 	@Id
-	private Long studentId;
+	private Long teacherId;
 	private String firstName;
 	private String lastName;
-	private String middleName;
-	private String motherName;
-	private String email;
+	private String subject;
+	private String experience;
 	private String mobileNo;
-	private String address;
 	private String city;
-	private String state;
-	private String country;
-	private long standard;
-	private String attachment;
-	private String classTeacherId;
 	private Gender gender;
-	
 }

@@ -1,11 +1,13 @@
 package com.student.student_service.model;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
 public class StudentResponse {
 
-	private Long sId;
+	private Long studentId;
 	private String firstName;
 	private String lastName;
 	private String middleName;
@@ -16,6 +18,7 @@ public class StudentResponse {
 	private String city;
 	private String state;
 	private String country;
-	private String std;
+	private String standard;
+	private String attachment;
 
 }

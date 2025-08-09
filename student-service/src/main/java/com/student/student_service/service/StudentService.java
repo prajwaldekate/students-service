@@ -16,10 +16,12 @@ public interface StudentService {
 	
 	public Page<StudentResponse> getAllStudentInfo(int page, int size);
 	
-	public StudentResponse findBySId(Long sId);
+	public StudentResponse findStudentById(Long studentId);
 	
 	public String uploadFile(MultipartFile file);
 	
 	public ResponseEntity<byte[]> downloadFile(String fileName) throws IOException;
+	
+	public void clearCache();
 	
 }
